@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 from src.utils import CARTOON
 
-UPLOAD_FOLDER = '/home/david/Documents/Python/cartoonify_app/static/img'
+UPLOAD_FOLDER = '/home/david/Documents/Python/cartoonify_app/static'
 
 app = Flask(__name__)
 app.secret_key = "secret key"
@@ -34,7 +34,7 @@ def cartoon():
             output_path = os.path.join(app.config['UPLOAD_FOLDER'],'output_image.jpg')
             output_image.save(output_path)
             flash('Did it, good job!')
-            return render_template('output.html', user_image = output_path)
+            return render_template('output.html')
 
 if __name__ == '__main__':
     app.run('0.0.0.0',5000, debug=True)

@@ -1,14 +1,28 @@
 <!doctype html>
 <title>My cartoonify app</title>
-<h2>Select a file to upload</h2>
-<p>
-	{% with messages = get_flashed_messages() %}
-	  {% if messages %}
-        Label: {{ messages[0] }}
-        Accuracy: {{ messages[1] }}
-	  {% endif %}
-	{% endwith %}
-</p>
+<head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+</style>
+</head>
+<h1>My cartoonify app</h1>
+<h2>Upload an image to cartoonify</h2>
+
 <form method="post" action="/cartoonify" enctype="multipart/form-data">
     <dl>
 	<p>
@@ -19,8 +33,27 @@
 	<input type="submit" value="Submit">
     </p>
 </form>
-
 <p>
-<h2>Model output</h2>
-<img src="{{user_image}}" alt="Cartoon" >
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+    	{{ messages[0] }}
+	  {% endif %}
+	{% endwith %}
 </p>
+<body>
+
+<h2>Model Input/Output</h2>
+
+<div class="row">
+  <div class="column">
+	<h3> Input </h3>
+    <img src="{{url_for('static', filename='upload_image.jpg')}}" alt="Original" style="width:50%">
+  </div>
+  <div class="column">
+	<h3> Output </h3>
+    <img src="{{url_for('static', filename='output_image.jpg')}}" alt="Cartoon" style="width:50%">
+  </div>
+
+</div>
+
+</body>
