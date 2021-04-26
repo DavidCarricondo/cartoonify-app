@@ -33,7 +33,7 @@ def cartoon():
             output_image = CARTOON().fit_transform('models/Hosoda_net_G_float.pth', input_path)
             output_path = os.path.join(app.config['UPLOAD_FOLDER'],'output_image.jpg')
             output_image.save(output_path)
-            flash('Did it, good job!')
+            flash('Image saved')
             return render_template('output.html')
 
 if __name__ == '__main__':
