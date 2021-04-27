@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
 from werkzeug.utils import secure_filename
-import os
+import os, re
 from src.utils import CARTOON
 
 UPLOAD_FOLDER = '/home/david/Documents/Python/cartoonify_app/static'
@@ -17,6 +17,10 @@ def welcome():
 ##TODO:
 @app.route('/cartoonify', methods=['POST'])
 def cartoon():
+
+    for f in os.listdir('./static/'):
+        os.remove(os.path.join('./static/', f))
+
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
