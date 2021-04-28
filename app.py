@@ -13,14 +13,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def welcome():
     return render_template('index.html')
 
-
-##TODO:
 @app.route('/cartoonify', methods=['POST'])
 def cartoon():
-
-    for f in os.listdir('./static/'):
-        os.remove(os.path.join('./static/', f))
-
     if request.method == 'POST':
         if 'file' not in request.files:
             flash('No file part')
@@ -40,7 +34,11 @@ def cartoon():
             flash('Image saved')
             return render_template('output.html')
 
+@app.after_request
+def add_header(response):
+    response.cache_control.max_age=0
+    return response
+
 if __name__ == '__main__':
     app.run('0.0.0.0',5000, debug=True)
 
-##'https://arifulislam-ron.medium.com/flask-web-application-to-classify-image-using-vgg16-d9c46f29c4cd'
